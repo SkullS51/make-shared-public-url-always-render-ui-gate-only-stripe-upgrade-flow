@@ -2,3 +2,4 @@
   "installCommand": "pnpm install --no-frozen-lockfile && pnpm approve-builds -y",
   "buildCommand": "pnpm run build"
 }
+
