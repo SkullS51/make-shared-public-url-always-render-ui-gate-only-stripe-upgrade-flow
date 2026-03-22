@@ -4,9 +4,7 @@
     "env": {
       "ENABLE_EXPERIMENTAL_COREPACK": "1"
     }
-  }
-}
-
+  },
   "name": "@caffeine/template-app",
   "type": "module",
   "engines": {
@@ -20,6 +18,14 @@
     "check": "pnpm -r --if-present run check",
     "fix": "pnpm -r --if-present run fix"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp",
+      "@biomejs/biome"
+    ]
+  },
   "devDependencies": {
     "sharp": "^0.34.4"
   }
+}
+
