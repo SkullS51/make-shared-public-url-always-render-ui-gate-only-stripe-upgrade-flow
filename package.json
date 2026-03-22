@@ -1,4 +1,6 @@
 {
+  "packageManager": "pnpm@7.5.1"
+}{
   "name": "@caffeine/template-app",
   "type": "module",
   "engines": {
