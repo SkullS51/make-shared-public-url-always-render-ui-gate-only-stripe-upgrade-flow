@@ -1,12 +1,6 @@
 {
   "name": "@caffeine/template-app",
   "type": "module",
-  "installCommand": "pnpm install --no-frozen-lockfile && pnpm approve-builds --yes",
-  "build": {
-    "env": {
-      "ENABLE_EXPERIMENTAL_COREPACK": "1"
-    }
-  },
   "engines": {
     "node": ">=18.0.0",
     "pnpm": ">=8.0.0"
