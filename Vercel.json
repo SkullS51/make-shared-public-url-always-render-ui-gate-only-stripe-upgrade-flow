@@ -1,8 +1,4 @@
 {
   "installCommand": "pnpm install --no-frozen-lockfile && pnpm approve-builds -y",
-  "build": {
-    "env": {
-      "ENABLE_EXPERIMENTAL_COREPACK": "1"
-    }
-  }
+  "buildCommand": "pnpm run build"
 }
