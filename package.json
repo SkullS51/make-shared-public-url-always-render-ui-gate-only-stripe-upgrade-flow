@@ -1,4 +1,7 @@
-{ Build Sync 1.0
+{
+  "description": "Build Sync 1.0 - Azrael Protocol Coherence",
+  "name": "@caffeine/template-app",
+
   "name": "@caffeine/template-app",
   "type": "module",
   "packageManager": "pnpm@9.1.0",
