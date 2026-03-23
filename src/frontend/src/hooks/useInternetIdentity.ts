@@ -153,7 +153,7 @@ export function InternetIdentityProvider({
     undefined,
   );
   const [identity, setIdentity] = useState<Identity | undefined>(undefined);
-  const [loginStatus, setStatus] = useState<Status>("initializing");
+  const [loginStatus, setStatus] = useState<Status>("success");
   const [loginError, setError] = useState<Error | undefined>(undefined);
 
   const setErrorMessage = useCallback((message: string) => {
