@@ -1,8 +1,7 @@
 {
   "installCommand": "pnpm install --no-frozen-lockfile",
   "buildCommand": "pnpm run build",
-  "outputDirectory": "src/frontend/dist"
-}{
+  "outputDirectory": "src/frontend/dist",
   "crons": [
     {
       "path": "/api/keep-alive",
@@ -10,5 +9,6 @@
     }
   ]
 }
+
 
 
