@@ -2,9 +2,12 @@ import {
   AuthClient,
   type AuthClientCreateOptions,
   type AuthClientLoginOptions,
-} from "@dfinity/auth-client";
+} from "@icp-sdk/auth";
 import type { Identity } from "@icp-sdk/core/agent";
-import { DelegationIdentity, isDelegationValid } from "@icp-sdk/core/identity";
+import {
+  DelegationIdentity,
+  isDelegationValid,
+} from "@icp-sdk/core/identity";
 import {
   type PropsWithChildren,
   type ReactNode,
@@ -16,7 +19,6 @@ import {
   useMemo,
   useState,
 } from "react";
-import { loadConfig } from "../config";
 
 export type Status =
   | "initializing"
@@ -80,25 +82,29 @@ export const useInternetIdentity = (): InternetIdentityContext => {
 export function InternetIdentityProvider({
   children,
   createOptions,
+  derivationOrigin,
 }: PropsWithChildren<{
   children: ReactNode;
   createOptions?: AuthClientCreateOptions;
+  derivationOrigin?: string;
 }>) {
-  const [authClient, setAuthClient] = useState<AuthClient | undefined>(undefined);
+  const [authClient, setAuthClient] = useState<AuthClient | undefined>(
+    undefined,
+  );
   const [identity, setIdentity] = useState<Identity | undefined>(undefined);
-  const [loginStatus, setStatus] = useState<Status>("idle");
-  const [loginError, setError] = useState<Error | undefined>(undefined);
+  const [loginStatus, setLoginStatus] = useState<Status>("idle");
+  const [loginError, setLoginError] = useState<Error | undefined>(undefined);
 
   const setErrorMessage = useCallback((message: string) => {
-    setStatus("loginError");
-    setError(new Error(message));
+    setLoginStatus("loginError");
+    setLoginError(new Error(message));
   }, []);
 
   const handleLoginSuccess = useCallback(() => {
     if (!authClient) return;
     const latestIdentity = authClient.getIdentity();
     setIdentity(latestIdentity);
-    setStatus("success");
+    setLoginStatus("success");
   }, [authClient]);
 
   const handleLoginError = useCallback(
@@ -114,52 +120,85 @@ export function InternetIdentityProvider({
       return;
     }
 
+    // Clear previous error state before new attempt
+    setLoginError(undefined);
+
     const options: AuthClientLoginOptions = {
       identityProvider: DEFAULT_IDENTITY_PROVIDER,
-      derivationOrigin: "https://gut-punch.vercel.app",
+      derivationOrigin:
+        derivationOrigin ?? "https://gut-punch.vercel.app",
       onSuccess: handleLoginSuccess,
       onError: handleLoginError,
       maxTimeToLive: ONE_HOUR_IN_NANOSECONDS * BigInt("720"), // 30 days
     };
 
-    setStatus("logging-in");
+    setLoginStatus("logging-in");
     void authClient.login(options);
-  }, [authClient, handleLoginError, handleLoginSuccess, setErrorMessage]);
+  }, [
+    authClient,
+    handleLoginError,
+    handleLoginSuccess,
+    setErrorMessage,
+    derivationOrigin,
+  ]);
 
   const clear = useCallback(() => {
     if (!authClient) return;
     void authClient.logout().then(() => {
       setIdentity(undefined);
-      setStatus("idle");
-      setError(undefined);
+      setLoginStatus("idle");
+      setLoginError(undefined);
     });
   }, [authClient]);
 
   useEffect(() => {
     let cancelled = false;
+
     const init = async () => {
       try {
-        setStatus("initializing");
+        setLoginStatus("initializing");
         const client = await createAuthClient(createOptions);
         if (cancelled) return;
-        
+
         setAuthClient(client);
         const authenticated = await client.isAuthenticated();
+        const currentIdentity = client.getIdentity();
+
+        // Validate delegation chain if present
+        if (
+          authenticated &&
+          currentIdentity instanceof DelegationIdentity
+        ) {
+          if (!isDelegationValid(currentIdentity.getDelegation())) {
+            await client.logout();
+            if (!cancelled) {
+              setLoginStatus("idle");
+            }
+            return;
+          }
+        }
+
         if (authenticated && !cancelled) {
-          setIdentity(client.getIdentity());
-          setStatus("success");
+          setIdentity(currentIdentity);
+          setLoginStatus("success");
         } else if (!cancelled) {
-          setStatus("idle");
+          setLoginStatus("idle");
         }
       } catch (e) {
         if (!cancelled) {
-          setStatus("loginError");
-          setError(e instanceof Error ? e : new Error("Init failed"));
+          setLoginStatus("loginError");
+          setLoginError(
+            e instanceof Error ? e : new Error("Init failed"),
+          );
         }
       }
     };
+
     void init();
-    return () => { cancelled = true; };
+
+    return () => {
+      cancelled = true;
+    };
   }, [createOptions]);
 
   const value = useMemo<ProviderValue>(
@@ -183,4 +222,3 @@ export function InternetIdentityProvider({
     children,
   });
 }
-
