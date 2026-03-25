@@ -58,10 +58,11 @@ export type InternetIdentityContext = {
   loginError?: Error;
 };
 
-const ONE_HOUR_IN_NANOSECONDS = BigInt(3_600_000_000_000);
+const ONE_HOUR_IN_NANOSECONDS = BigInt(3600000000000);
 const DEFAULT_IDENTITY_PROVIDER = "https://identity.ic0.app";
 
 type ProviderValue = InternetIdentityContext;
+
 const InternetIdentityReactContext = createContext<ProviderValue | undefined>(
   undefined,
 );
