@@ -155,7 +155,7 @@ export function InternetIdentityProvider({
   const setErrorMessage = useCallback((message: string) => {
     setStatus("loginError")
     setError(new Error(message));
-  }, []);
+  }, []};
 
   const handleLoginSuccess = useCallback(() => {
     const latestIdentity = authClient?.getIdentity();
