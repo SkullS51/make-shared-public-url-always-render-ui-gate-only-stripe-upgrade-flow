@@ -11,7 +11,7 @@
     "copy:env": "cp env.json dist/",
     "check": "biome check src",
     "fix": "biome check --write src"
-  }
+  },
     "devDependencies": {
     "@biomejs/biome": "^1.9.0",
     "@tailwindcss/container-queries": "^0.1.1",
