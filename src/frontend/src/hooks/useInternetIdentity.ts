@@ -59,7 +59,7 @@ export type InternetIdentityContext = {
 };
 
 const ONE_HOUR_IN_NANOSECONDS = BigInt(3_600_000_000_000);
-const DEFAULT_IDENTITY_PROVIDER = process.env.II_URL;
+const DEFAULT_IDENTITY_PROVIDER = process.env.VITE_II_URL || "https://identity.ic0.app";
 
 type ProviderValue = InternetIdentityContext;
 const InternetIdentityReactContext = createContext<ProviderValue | undefined>(
@@ -260,7 +260,8 @@ export function InternetIdentityProvider({
     return () => {
       cancelled = true;
     };
-  }, [createOptions, authClient]);
+  }, }, [createOptions]); 
+
 
   const value = useMemo<ProviderValue>(
     () => ({
