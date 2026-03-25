@@ -1,11 +1,11 @@
 {
   "installCommand": "pnpm install --no-frozen-lockfile",
   "buildCommand": "pnpm run build",
-  "outputDirectory": "src/frontend/dist",
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/"
+      "destination": "/index.html"
     }
   ],
   "crons": [
@@ -15,6 +15,7 @@
     }
   ]
 }
+
 
 
 
