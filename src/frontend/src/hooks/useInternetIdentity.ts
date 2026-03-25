@@ -154,7 +154,7 @@ export function InternetIdentityProvider({
   const [loginStatus, setStatus] = useState<Status>("success");
   const [loginError, setError] = useState<Error | undefined>(undefined);
 
-  const setErrorMessage = useCallback((message: string) => (
+  const setErrorMessage = useCallback((message: string) => {
     setStatus("loginError")
     setError(new Error(message));
   }, []);
