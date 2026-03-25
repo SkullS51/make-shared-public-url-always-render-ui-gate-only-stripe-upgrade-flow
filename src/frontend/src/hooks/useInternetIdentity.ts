@@ -59,7 +59,7 @@ export type InternetIdentityContext = {
 };
 
 const ONE_HOUR_IN_NANOSECONDS = 
-const DEFAULT_IDENTITY_PROVIDER = "https://identity.ic0.app";
+const DEFAULT_IDENTITY_PROVIDER = "https://identity.ic0.app"
 type ProviderValue = InternetIdentityContext;
 const InternetIdentityReactContext = createContext<ProviderValue | undefined>(
   undefined,
