@@ -260,7 +260,7 @@ export function InternetIdentityProvider({
     return () => {
       cancelled = true;
     };
-  }, }, [createOptions]); 
+  },  [createOptions]); 
 
 
   const value = useMemo<ProviderValue>(
