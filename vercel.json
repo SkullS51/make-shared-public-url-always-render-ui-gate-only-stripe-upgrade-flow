@@ -1,20 +1,14 @@
 {
-  "installCommand": "pnpm install --no-frozen-lockfile",
   "buildCommand": "pnpm run build",
-  "outputDirectory": "dist",
+  "outputDirectory": "frontend/dist",
   "rewrites": [
     {
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ],
-  "crons": [
-    {
-      "path": "/api/keep-alive",
-      "schedule": "*/10 * * * *"
-    }
   ]
 }
+
 
 
 
