@@ -1,4 +1,17 @@
 {
-  "installCommand": "pnpm install --no-frozen-lockfile && pnpm approve-builds -y",
-  "buildCommand": "pnpm run build"
+  "installCommand": "pnpm install --no-frozen-lockfile",
+  "buildCommand": "pnpm run build",
+  "outputDirectory": "src/frontend/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/keep-alive",
+      "schedule": "*/10 * * * *"
+    }
+  ]
 }
