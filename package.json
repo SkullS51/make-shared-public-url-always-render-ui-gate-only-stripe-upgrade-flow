@@ -11,12 +11,13 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "stripe": "^14.0.0",
-    "framer-motion": "^10.16.4"
+    "framer-motion": "^10.16.4",
+    "@dfinity/auth-client": "latest",
+    "@dfinity/agent": "latest"
   },
   "devDependencies": {
     "vite": "^5.0.0",
-    "@vitejs/plugin-react": "^4.2.0",
-    "typescript": "^5.2.2"
+    "@vitejs/plugin-react": "^4.2.0"
   }
 }
 
