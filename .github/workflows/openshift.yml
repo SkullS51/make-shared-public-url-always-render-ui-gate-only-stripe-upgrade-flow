@@ -45,7 +45,7 @@ env:
 
   # 🖊️ EDIT to change the image registry settings.
   # Registries such as GHCR, Quay.io, and Docker Hub are supported.
-  IMAGE_REGISTRY: ghcr.io/skulls51
+  IMAGE_REGISTRY: ghcr.io/skulls51/gut-punch
   IMAGE_REGISTRY_USER: skulls51
   IMAGE_REGISTRY_PASSWORD: ${{ github.token }}
 
