@@ -46,14 +46,9 @@ ENV PATH=/home/ubuntu/.mops/bin:/home/ubuntu/bin:/home/ubuntu/.local/share/dfx/b
 
 # Optimized PNPM configuration for better caching
 RUN mkdir -p /home/ubuntu/.config/pnpm /home/ubuntu/.local/share/pnpm/store /home/ubuntu/.cache/pnpm
-RUN <<EOF
-cat > /home/ubuntu/.config/pnpm/rc << 'PNPMRC'
-nodeLinker=hoisted
-store-dir=/home/ubuntu/.local/share/pnpm/store
-cache-dir=/home/ubuntu/.cache/pnpm
-prefer-offline=true
-PNPMRC
-EOF
+# Optimized PNPM configuration
+RUN mkdir -p /home/ubuntu/.config/pnpm /home/ubuntu/.local/share/pnpm/store /home/ubuntu/.cache/pnpm && \
+    echo "nodeLinker=hoisted\nstore-dir=/home/ubuntu/.local/share/pnpm/store\ncache-dir=/home/ubuntu/.cache/pnpm\nprefer-offline=true" > /home/ubuntu/.config/pnpm/rc
 
 ENV PNPM_HOME="/home/ubuntu/.local/share/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
