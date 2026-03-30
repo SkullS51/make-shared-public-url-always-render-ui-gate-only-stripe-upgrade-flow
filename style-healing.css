@@ -1,0 +1,41 @@
+/* Sovereign Healing: Vigil #44 - Arfa Feedback Revision */
+:root {
+  --bg-linen: #FAF9F6;      /* Off-white "Linen" */
+  --text-charcoal: #4A4A4A; /* Soft reading color */
+  --sage-accent: #76937D;   /* Calming Sage Green */
+  --sand-button: #E8DCC4;   /* Warm Sand */
+  --white: #FFFFFF;
+}
+
+body {
+  background-color: var(--bg-linen);
+  color: var(--text-charcoal);
+  font-family: 'Inter', system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Reduced Navigation Friction - The "Single-Focus Hub" */
+.nav-hub {
+  background: var(--white);
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.breathing-trigger {
+  background-color: var(--sage-accent);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 50px; /* Pill shape is more inviting */
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s;
+}
+
+.breathing-trigger:hover {
+  transform: scale(1.05);
+}
