@@ -38,6 +38,7 @@ npm i -g ic-mops@1.11.1
 mops --version
 EOF
 
+
 USER ubuntu
 WORKDIR /home/ubuntu
 ENV HOME=/home/ubuntu
