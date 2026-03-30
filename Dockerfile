@@ -33,10 +33,8 @@ RUN npm install -g pnpm@latest-10 \
     && pnpm --version
 
 # Install mops
-RUN <<EOF
-npm i -g ic-mops@1.11.1
-mops --version
-EOF
+RUN npm install -g ic-mops@1.11.1 && mops --version
+
 
 
 USER ubuntu
